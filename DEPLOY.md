@@ -34,13 +34,15 @@ Preview locally: `cd site && python3 -m http.server 8123` → http://127.0.0.1:8
 2. **Create one mailbox — `contact@memoriostudio.com`.** It is the only address on the site.
    Apple also requires the enrollment email itself to be **on the organization's domain**, so a
    working mailbox is a hard prerequisite, not a nicety.
-3. **Fill three facts this repo does not hold.** All are left general rather than invented:
-   - **State of organization** — for the governing-law line in `terms.html`.
-   - **Business mailing address** — worth adding. Apple cross-references the enrolling entity
-     against its D&B record; an address on the site that matches that record is the strongest
-     available signal that the domain belongs to the organization. Drop it into the company ledger
-     on `/` and `/about.html`, and into the `PostalAddress` in the JSON-LD block.
-   - **Business phone** — same reasoning; Apple's verification often involves a call.
+3. **Company details are now on the site**, supplied by the founder 2026-08-19:
+   30 N Gould St, Ste R, Sheridan, WY 82801 — in the ledger on `/`, `/about` and `/contact`, in
+   the footer of every page, in the JSON-LD `PostalAddress`, and in the contact blocks of both
+   legal documents. Governing law is set to **Wyoming**, inferred from that address.
+   **Confirm two things before enrollment:** that the LLC is in fact organised in Wyoming (the
+   governing-law clause says so), and that this address matches the one on the D&B record Apple
+   cross-references — a mismatch there is a likely rejection.
+   - **Business phone** — still not on the site. Worth adding; Apple's verification often
+     involves a call to the number on the D&B record.
 4. **Deploy, then verify from outside** — load all four pages in a private window with no VPN, on
    the bare domain and `www`, and confirm no password gate remains.
 
