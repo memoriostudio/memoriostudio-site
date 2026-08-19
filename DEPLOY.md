@@ -38,9 +38,9 @@ Preview locally: `cd site && python3 -m http.server 8123` → http://127.0.0.1:8
    30 N Gould St, Ste R, Sheridan, WY 82801 — in the ledger on `/`, `/about` and `/contact`, in
    the footer of every page, in the JSON-LD `PostalAddress`, and in the contact blocks of both
    legal documents. Governing law is set to **Wyoming**, inferred from that address.
-   **Confirm two things before enrollment:** that the LLC is in fact organised in Wyoming (the
-   governing-law clause says so), and that this address matches the one on the D&B record Apple
-   cross-references — a mismatch there is a likely rejection.
+   **Both confirmed by the founder 2026-08-19:** the LLC is organised in Wyoming, and the address
+   matches the D&B record Apple cross-references. The site now states "a Wyoming limited liability
+   company" on first use in both legal documents and in the company ledgers.
    - **Business phone** — still not on the site. Worth adding; Apple's verification often
      involves a call to the number on the D&B record.
 4. **Deploy, then verify from outside** — load all four pages in a private window with no VPN, on
