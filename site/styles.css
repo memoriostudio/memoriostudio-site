@@ -13,9 +13,9 @@
   --rule:    #e4e7ec;
   --ink:     #12151a;
   --body:    #464e59;
-  --muted:   #6f7883;
+  --muted:   #5a626d;
 
-  --steel:      #4d7cfe;
+  --steel:      #2d5ce0;
   --steel-soft: #8fb0ff;
 
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
@@ -57,7 +57,7 @@ body { margin: 0; background: var(--paper); color: var(--body); font: 16px/1.7 v
 .hero .sub { margin: 0 auto; max-width: 48ch; color: var(--on-night-dim); font-size: 1.06rem; }
 
 .cta { display: inline-block; margin-top: 2rem; padding: .8rem 1.6rem; border-radius: 7px; background: var(--steel); color: #fff; font-weight: 600; font-size: .96rem; text-decoration: none; }
-.cta:hover { background: #3d6bee; }
+.cta:hover { background: #2450cc; }
 
 .hero-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; max-width: 52rem; margin: 3.25rem auto 0; text-align: left; }
 .hero-card { padding: 1.4rem 1.5rem; border: 1px solid var(--night-ln); border-radius: 12px; background: linear-gradient(180deg, var(--night-3), var(--night-2)); }
@@ -114,3 +114,22 @@ footer.site a:hover { color: var(--on-night); }
 .push { margin-left: auto; font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #7c8593; }
 
 :focus-visible { outline: 2px solid var(--steel); outline-offset: 3px; }
+
+/* Skip link — keyboard users reach content without walking the nav. */
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  padding: .7rem 1.1rem; background: var(--paper); color: var(--ink);
+  border: 1px solid var(--ink); border-radius: 0 0 7px 0; z-index: 50;
+  font-size: .92rem; text-decoration: none;
+}
+.skip:focus { left: 0; }
+
+/* Print: legal pages get printed and filed. */
+@media print {
+  .topbar, .cta, footer.site { display: none; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .hero { background: #fff; color: #000; padding: 1rem 0; text-align: left; }
+  .hero h1, .hero::before, .hero::after { color: #000; background: none; }
+  a { text-decoration: underline; }
+  a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 9pt; }
+}
