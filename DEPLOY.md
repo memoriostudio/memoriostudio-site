@@ -26,8 +26,8 @@ Preview locally: `cd site && python3 -m http.server 8123` → http://127.0.0.1:8
    portraits — launching soon" page behind a password, from the unrelated earlier project. That
    page fails Apple's requirement twice: placeholder content, and a business that does not match
    the enrolling entity. Point the domain at this site instead.
-2. **Create the three mailboxes** — `hello@`, `legal@`, `security@memoriostudio.com`. Apple also
-   requires the enrollment email itself to be **on the organization's domain**, so at least one
+2. **Create one mailbox — `contact@memoriostudio.com`.** It is the only address on the site.
+   Apple also requires the enrollment email itself to be **on the organization's domain**, so a
    working mailbox is a hard prerequisite, not a nicety.
 3. **Fill two facts this repo does not hold:** the state of organization (for the governing-law
    line in `terms.html`) and, if you want it public, a business mailing address. Both were left
@@ -37,7 +37,11 @@ Preview locally: `cd site && python3 -m http.server 8123` → http://127.0.0.1:8
 
 ## What deliberately is NOT here
 
-- No analytics, no cookies, no trackers, no embedded third-party content — which is what lets the
-  privacy policy say so plainly.
+- **No product or security claims.** Earlier drafts described on-device storage and an
+  advertising-free model. Those were cut: they describe an unreleased product, they are detail the
+  founder does not want public yet, and a claim made before it can be demonstrated is the exact
+  failure this workspace treats as unacceptable everywhere else. The privacy policy still states
+  what the *website* does, because that is verifiable by loading it.
+- No analytics, no cookies, no trackers, no embedded third-party content.
 - No product marketing, no waitlist, no email capture.
 - No EIN, no D-U-N-S, no bank details. Company identity is public; company secrets are not.
