@@ -150,3 +150,137 @@ footer.site a:hover { color: var(--on-night); }
 .faq summary::before { content: "+"; color: var(--muted); font: 500 1.1rem/1 var(--mono); width: 1rem; }
 .faq details[open] summary::before { content: "\2013"; }
 .faq details p { margin: 0 0 1rem 1.75rem; font-size: .96rem; }
+
+/* ── Tiles, upgraded ────────────────────────────────────────────────────── */
+.tiles { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+
+.tile {
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  padding: 1.9rem 1.5rem 1.6rem;
+  background: var(--paper);
+}
+
+.tile::before {
+  content: attr(data-n);
+  display: block;
+  margin-bottom: .9rem;
+  color: var(--muted);
+  font: 600 .68rem/1 var(--mono);
+  letter-spacing: .16em;
+}
+
+.tile::after {
+  content: "";
+  position: absolute;
+  left: 1.5rem; top: 1.75rem;
+  width: 1.5rem; height: 2px;
+  background: var(--steel);
+  opacity: 0;
+  transform: translateX(-6px);
+}
+
+.tile h3 { margin: 0 0 .5rem; font-size: 1rem; letter-spacing: -.005em; }
+.tile p { color: var(--body); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tile, .tile::after { transition: background .18s ease, opacity .18s ease, transform .18s ease; }
+}
+.tile:hover { background: var(--paper-2); }
+.tile:hover::after { opacity: 1; transform: translateX(0); }
+
+/* Dev-type wordmark: monospace, lowercased, with a prompt caret. */
+.wordmark { gap: .5rem; font-family: var(--mono); font-weight: 600; font-size: .95rem; letter-spacing: -.01em; }
+.wordmark .caret { color: var(--steel-soft); font-weight: 700; }
+.wordmark .dim { color: #8b95a3; font-weight: 500; }
+
+/* ── Stat strip: honest numbers, including the unflattering one ─────────── */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1px;
+  max-width: 52rem;
+  margin: 3.25rem auto 0;
+  background: var(--night-ln);
+  border: 1px solid var(--night-ln);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.stat-strip > div { padding: 1.1rem 1.25rem; background: var(--night-2); }
+
+.stat-strip dt {
+  margin: 0 0 .4rem;
+  color: #8b95a3;
+  font: 600 .66rem/1 var(--mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.stat-strip dd {
+  margin: 0;
+  color: #fff;
+  font: 500 1.35rem/1.1 var(--serif);
+  letter-spacing: -.01em;
+}
+
+.stat-strip .stat-note {
+  display: block;
+  margin-top: .3rem;
+  color: var(--on-night-dim);
+  font: 500 .72rem/1.4 var(--mono);
+  letter-spacing: .04em;
+  text-transform: none;
+}
+
+/* ── Footer: a real grid, not a run-on line ─────────────────────────────── */
+footer.site { padding: 3.25rem 0 2.5rem; }
+
+footer.site .wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  gap: 2rem 2.5rem;
+  align-items: start;
+}
+
+.foot-brand .wordmark { color: var(--on-night); margin-bottom: .75rem; }
+.foot-brand address { font-style: normal; color: var(--on-night-dim); font-size: .88rem; line-height: 1.7; }
+.foot-brand address a { color: var(--on-night-dim); text-decoration: none; }
+.foot-brand address a:hover { color: var(--on-night); text-decoration: underline; }
+
+.foot-col h2 {
+  margin: 0 0 .8rem;
+  color: #7c8593;
+  font: 600 .66rem/1 var(--mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.foot-col ul { margin: 0; padding: 0; list-style: none; }
+.foot-col li { margin-bottom: .5rem; }
+.foot-col a { color: var(--on-night-dim); text-decoration: none; font-size: .9rem; }
+.foot-col a:hover { color: var(--on-night); }
+
+.foot-base {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  align-items: baseline;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  color: #7c8593;
+  font: 500 .74rem/1.6 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.foot-base .push { margin-left: auto; }
+
+@media (max-width: 46rem) {
+  footer.site .wrap { grid-template-columns: 1fr 1fr; }
+  .foot-brand { grid-column: 1 / -1; }
+}
