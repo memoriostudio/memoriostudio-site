@@ -56,7 +56,7 @@ curl -sI https://memoriostudio.com/ | head -1
 
 1. ~~**Create `contact@memoriostudio.com`.**~~ **Done** — it exists in Google Workspace (confirmed by
    the founder, 2026-08-19). It is the only address the site publishes, in every footer, in the
-   `Organization` JSON-LD on all six pages, and in `security.txt`.
+   `Organization` JSON-LD on all seven pages, and in `security.txt`.
 
    **The enrollment address is a different address and does not need to appear here.** Apple's
    requirement is that the enrollment email's *domain* match the organization's website domain — not
@@ -72,7 +72,15 @@ curl -sI https://memoriostudio.com/ | head -1
 
 ## What is on the site
 
-Six pages — home, about, contact, privacy, terms, 404 — roughly 2,900 words.
+Seven pages — home, about, contact, privacy, terms, security, 404 — roughly 4,200 words.
+
+`security.html` is a real vulnerability disclosure policy: what to send, what we commit to in
+return, safe harbour for good-faith research, scope, and an explicit "no paid bounty" so nobody
+does the work expecting one. The footer's **Security** link points there. It used to point
+straight at `.well-known/security.txt`, which is a valid RFC 9116 file but renders to a human as
+four lines of raw text with no page around it — it reads as broken, and a reviewer clicks it.
+The `.txt` stays exactly where the RFC requires and now carries a `Policy:` field pointing back
+at the page.
 Legal entity, entity type, registered address and jurisdiction appear in the company ledgers, in
 every footer, in the JSON-LD `Organization` block, and in the contact sections of both legal
 documents. Privacy and terms are written to cover mailing lists, marketing email, cookies and

@@ -1,4 +1,5 @@
 Contact: mailto:contact@memoriostudio.com
+Policy: https://memoriostudio.com/security.html
 Expires: 2027-08-19T00:00:00.000Z
 Preferred-Languages: en
 Canonical: https://memoriostudio.com/.well-known/security.txt

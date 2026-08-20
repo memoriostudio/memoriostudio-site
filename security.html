@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security — Memorio Studio</title>
+<meta name="description" content="How to report a security or privacy vulnerability to Memorio Studio LLC, what we commit to in return, and our safe-harbour position for good-faith research.">
+<meta name="theme-color" content="#121417">
+<link rel="canonical" href="https://memoriostudio.com/security.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Memorio Studio">
+<meta property="og:title" content="Security — Memorio Studio">
+<meta property="og:description" content="How to report a vulnerability, and what we commit to in return.">
+<meta property="og:url" content="https://memoriostudio.com/security.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Security — Memorio Studio">
+<meta name="twitter:description" content="How to report a vulnerability, and what we commit to in return.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Memorio Studio LLC","alternateName":"Memorio Studio","legalName":"Memorio Studio LLC","url":"https://memoriostudio.com/","email":"contact@memoriostudio.com","description":"Independent software company designing, building and publishing its own products.","foundingDate":"2026","address":{"@type":"PostalAddress","streetAddress":"30 N Gould St, Ste R","addressLocality":"Sheridan","addressRegion":"WY","postalCode":"82801","addressCountry":"US"},"contactPoint":{"@type":"ContactPoint","contactType":"customer support","email":"contact@memoriostudio.com","availableLanguage":"English"}}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="index.html"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+  <rect x="1" y="1" width="20" height="20" rx="5" fill="#1d2128" stroke="#3a414c" stroke-width="1.2"/>
+  <path d="M6 15.5V7l5 5.5L16 7v8.5" stroke="#8fb0ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span class="caret">&gt;</span><span>memorio</span><span class="dim">_studio</span></a>
+  <nav aria-label="Primary">
+    <a href="index.html">Studio</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+</div></header>
+<main id="main">
+<section class="doc-head"><div class="wrap">
+  <h1>Security</h1>
+  <p class="updated">Vulnerability disclosure policy &middot; 19 August 2026</p>
+</div></section>
+<section class="doc"><div class="wrap">
+<p>If you have found a security or privacy issue in this website or in one of our applications, we
+want to hear about it directly, before anyone else does. This page says exactly how to tell us, what
+we will do in return, and what we will not do to you for telling us.</p>
+
+<div class="ledger"><dl>
+  <div class="row"><dt>Report to</dt><dd><a href="mailto:contact@memoriostudio.com">contact@memoriostudio.com</a></dd></div>
+  <div class="row"><dt>Machine-readable</dt><dd><a href=".well-known/security.txt">/.well-known/security.txt</a> (RFC&nbsp;9116)</dd></div>
+  <div class="row"><dt>First reply</dt><dd>Within five business days</dd></div>
+  <div class="row"><dt>Languages</dt><dd>English</dd></div>
+  <div class="row"><dt>Encryption</dt><dd>None published yet &mdash; ask and we will arrange a key</dd></div>
+</dl></div>
+
+<h2>What to send</h2>
+<p>Enough for us to reproduce the issue without guessing. In practice that means:</p>
+<ul>
+  <li>Where it is &mdash; the URL, the application, or the version.</li>
+  <li>What you did, step by step.</li>
+  <li>What happened, and what you expected instead.</li>
+  <li>Why you think it matters. A short sentence is fine; we would rather have your read on it than
+      not.</li>
+</ul>
+<p>Screenshots and short recordings help. Please do not include anyone else&rsquo;s personal data in
+your report &mdash; if a proof of concept would require it, describe the shape of the problem and we
+will reproduce it ourselves.</p>
+
+<h2>What we commit to</h2>
+<ul>
+  <li>A human reply within five business days. Not a ticket number.</li>
+  <li>An honest assessment &mdash; including telling you plainly when we think something is not a
+      vulnerability, and why.</li>
+  <li>Keeping you updated while we work, rather than going quiet until it is fixed.</li>
+  <li>Credit in the release notes if you want it, and none if you would rather stay anonymous. Your
+      choice, asked before we publish.</li>
+</ul>
+<p>We are a small company. We would rather tell you a fix will take a while than pretend it will not.</p>
+
+<h2>What we ask of you</h2>
+<p>Give us a reasonable opportunity to fix the issue before you disclose it publicly. Ninety days is
+the norm and we will not argue about it; if we need longer we will say so and explain why, and if we
+are dragging our feet, say so and we will take the point.</p>
+<p>While you are testing, please stay inside these lines:</p>
+<ul>
+  <li>Only use accounts and data that are your own.</li>
+  <li>If you do come across someone else&rsquo;s data, stop, do not save a copy, and tell us what you
+      saw and how.</li>
+  <li>No denial of service, no load testing, and nothing that degrades the service for other people.</li>
+  <li>No social engineering of our people, our customers, or our vendors, and no physical attempts
+      against our registered address or any premises.</li>
+  <li>No spam, and no automated scanning heavy enough to be indistinguishable from an attack.</li>
+</ul>
+
+<h2>Safe harbour</h2>
+<p>If you follow the lines above and report to us in good faith, we will not pursue or support legal
+action against you for your research, and we will treat your work as authorised for the purposes of
+computer-misuse and anti-circumvention law. If a third party brings action against you for research
+you conducted within this policy, we will make it known that your work was authorised.</p>
+<p>This is our commitment, not legal advice, and it cannot bind anyone other than Memorio Studio LLC.
+If you are ever unsure whether something falls inside this policy, ask us first &mdash; that question
+alone will never be held against you.</p>
+
+<h2>Scope</h2>
+<p>This policy covers <span class="mono-inline">memoriostudio.com</span>, its subdomains, and any
+application published by Memorio Studio LLC.</p>
+<p>It does not cover the third parties who serve or host this site, or any service that merely links
+to us. Findings in those belong with their own security teams, though we would still like to know if
+they touch us.</p>
+
+<h2>Out of scope as findings</h2>
+<p>To save your time: reports consisting only of automated scanner output, missing hardening headers
+with no demonstrated impact, best-practice notes about our TLS configuration, or the absence of a
+feature we have not shipped are not treated as vulnerabilities. Show us an impact and we will look
+regardless of category.</p>
+
+<h2>Rewards</h2>
+<p>We do not run a paid bounty programme, and we would rather say so plainly than let you find out
+after the work. What we offer is a fast human answer, public credit if you want it, and the fix.</p>
+
+<h2>This page</h2>
+<p>The machine-readable version of this policy lives at
+<a href=".well-known/security.txt">/.well-known/security.txt</a> and is the canonical location under
+RFC&nbsp;9116. If the two ever disagree, this page is the one we mean.</p>
+</div></section>
+</main>
+<footer class="site"><div class="wrap">
+  <div class="foot-brand">
+    <a class="wordmark" href="index.html"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+  <rect x="1" y="1" width="20" height="20" rx="5" fill="#1d2128" stroke="#3a414c" stroke-width="1.2"/>
+  <path d="M6 15.5V7l5 5.5L16 7v8.5" stroke="#8fb0ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span class="caret">&gt;</span><span>memorio</span><span class="dim">_studio</span></a>
+    <address>
+      Memorio Studio LLC<br>
+      30 N Gould St, Ste R<br>
+      Sheridan, WY 82801, United States<br>
+      <a href="mailto:contact@memoriostudio.com">contact@memoriostudio.com</a>
+    </address>
+  </div>
+  <div class="foot-col">
+    <h2>Studio</h2>
+    <ul>
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <div class="foot-col">
+    <h2>Legal</h2>
+    <ul>
+      <li><a href="privacy.html">Privacy policy</a></li>
+      <li><a href="terms.html">Terms of use</a></li>
+      <li><a href="security.html">Security</a></li>
+    </ul>
+  </div>
+  <div class="foot-base">
+    <span>&copy; 2026 Memorio Studio LLC</span>
+    <span>A Wyoming limited liability company</span>
+    <span class="push">Independent &amp; self-funded</span>
+  </div>
+</div></footer>
+</body>
+</html>

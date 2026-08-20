@@ -139,6 +139,8 @@ body { margin: 0; background: var(--paper); color: var(--body); font: 16px/1.7 v
 .doc h2:first-of-type { margin-top: 0; }
 .doc p, .doc li { max-width: 42rem; }
 .doc ul { padding-left: 1.15rem; }
+/* Inline monospace for a literal — a domain, a path, a header name. */
+.doc .mono-inline { font: 500 .93em/1 var(--mono); color: var(--ink); }
 .doc li { margin-bottom: .45rem; }
 
 a { color: var(--ink); text-underline-offset: 3px; text-decoration-color: #b9c0ca; }
