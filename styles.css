@@ -24,19 +24,57 @@
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+/* The canvas behind the page, which is what overscroll reveals. Both ends of
+   every page are dark (topbar, footer), so a white canvas shows as a white bar
+   above the wordmark the moment the page is pulled down on a phone. Giving html
+   its own background makes IT the propagated canvas colour; body's paper still
+   paints the body box, which is everything between the two dark ends. */
+html { -webkit-text-size-adjust: 100%; background: var(--night); }
 body { margin: 0; background: var(--paper); color: var(--body); font: 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
 .wrap { max-width: 70rem; margin: 0 auto; padding: 0 2rem; }
 
 /* ── Top bar, sits on the dark hero ─────────────────────────────────────── */
 .topbar { background: var(--night); border-bottom: 1px solid rgba(255,255,255,.06); }
-.topbar .wrap { display: flex; align-items: center; gap: 1rem 2.5rem; flex-wrap: wrap; min-height: 60px; }
+.topbar .wrap { display: flex; align-items: center; gap: 1rem 2.5rem; flex-wrap: wrap; min-height: 60px; padding-top: .5rem; padding-bottom: .5rem; }
 .wordmark { display: inline-flex; align-items: center; gap: .6rem; color: var(--on-night); text-decoration: none; font: 600 1.04rem/1 var(--sans); letter-spacing: -.012em; }
 .wordmark svg { display: block; }
 .topbar nav { margin-left: auto; display: flex; gap: 1.75rem; flex-wrap: wrap; }
 .topbar nav a { color: var(--on-night-dim); text-decoration: none; font-size: .92rem; }
 .topbar nav a:hover, .topbar nav a:focus-visible { color: var(--on-night); }
 .topbar nav a[aria-current="page"] { color: var(--on-night); }
+
+/* On a phone the five links wrapped to a second row, which pushed the bar to
+   117px and left the wordmark pinned flush against the very top edge. The nav
+   now takes its own full-width row under the wordmark and stays on ONE line:
+   nowrap plus overflow-x means a long link scrolls rather than folding the bar
+   in half, and space-between spreads the five across the width when they fit. */
+@media (max-width: 46rem) {
+  .topbar .wrap {
+    /* Vertical padding only. The horizontal 2rem is inherited from .wrap on
+       purpose: shrinking it here would set the wordmark 12px left of every
+       heading and paragraph below it, trading one alignment bug for another. */
+    padding-top: .9rem;
+    padding-bottom: .9rem;
+    gap: .85rem;
+    min-height: 0;
+  }
+  .topbar nav {
+    margin-left: 0;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: .75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .topbar nav::-webkit-scrollbar { display: none; }
+  .topbar nav a { white-space: nowrap; font-size: .88rem; }
+}
+
+@media (max-width: 22rem) {
+  .topbar nav a { font-size: .82rem; }
+}
 
 /* ── Hero ───────────────────────────────────────────────────────────────── */
 .hero { position: relative; background: var(--night); color: var(--on-night); overflow: hidden; padding: 5.5rem 0 4.5rem; text-align: center; }
@@ -107,11 +145,16 @@ a { color: var(--ink); text-underline-offset: 3px; text-decoration-color: #b9c0c
 a:hover { text-decoration-color: var(--ink); }
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */
-footer.site { background: var(--night); color: var(--on-night-dim); padding: 3rem 0; }
-footer.site .wrap { display: flex; flex-wrap: wrap; gap: .8rem 2rem; align-items: center; font-size: .88rem; }
+footer.site { background: var(--night); color: var(--on-night-dim); }
 footer.site a { color: var(--on-night-dim); text-decoration: none; }
 footer.site a:hover { color: var(--on-night); }
-.push { margin-left: auto; font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #7c8593; }
+
+/* .push is PLACEMENT ONLY. It used to carry its own type — .72rem/1, weight 600
+   — left over from when the footer was one flex line. Inside .foot-base that
+   made the third item a different size, weight and line-height from the two
+   beside it, so even when the three DID share a row their baselines sat 4px
+   apart. The type now comes from .foot-base, so all three lines match. */
+.push { margin-left: 0; }
 
 :focus-visible { outline: 2px solid var(--steel); outline-offset: 3px; }
 
@@ -224,10 +267,15 @@ footer.site .wrap {
 .foot-col a { color: var(--on-night-dim); text-decoration: none; font-size: .9rem; }
 .foot-col a:hover { color: var(--on-night); }
 
+/* A grid, not wrapping flex. Flex + margin-left:auto reads as "left, left,
+   right" only while all three fit on one line; the moment they wrap, each lands
+   on its own line and the auto margin shoves the last one to a third, arbitrary
+   x — two flush-left lines and one adrift. A grid cannot wrap mid-row, so the
+   layout is either three columns or one, and both are aligned by construction. */
 .foot-base {
   grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   gap: .5rem 1.5rem;
   align-items: baseline;
   margin-top: 1rem;
@@ -239,7 +287,14 @@ footer.site .wrap {
   text-transform: uppercase;
 }
 
-.foot-base .push { margin-left: auto; }
+.foot-base .push { justify-self: end; text-align: right; }
+
+/* Below this the three lines no longer fit across, so they stack — all flush
+   left, including the one that was pushed right. */
+@media (max-width: 56rem) {
+  .foot-base { grid-template-columns: 1fr; gap: .35rem; }
+  .foot-base .push { justify-self: start; text-align: left; }
+}
 
 @media (max-width: 46rem) {
   footer.site .wrap { grid-template-columns: 1fr 1fr; }
