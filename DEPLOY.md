@@ -1,75 +1,73 @@
-# memoriostudio.com — deploy notes
+# memoriostudio.com — deployment
 
-**What this is:** the parent-company site for **Memorio Studio LLC**, built to satisfy Apple
-Developer Program *organization* enrollment, which requires a website that is "publicly available
-and functional" on a domain associated with the organization, and explicitly rejects "websites that
-contain minimal content" or registrar/placeholder pages.
+**LIVE NOW:** https://memoriostudio.github.io/memoriostudio-site/
+**Repository:** https://github.com/memoriostudio/memoriostudio-site
+**Host:** GitHub Pages, serving `main` from the repository root. No Vercel, no build step,
+no dependencies. Every push to `main` republishes within a minute.
 
-**Deliberately says nothing about the product.** It presents the studio, not OORBO. No unreleased
-product names, no screenshots, no claims the product has not earned.
+---
 
-## Files
+## To put it on memoriostudio.com — the only step left
 
-Plain static HTML + one stylesheet. **No build step, no dependencies, no JavaScript.**
-Deployable to Vercel, Netlify, Cloudflare Pages, S3, or any static host.
+The domain is registered at **GoDaddy** and currently points at the old Vercel project
+(the "Memorial portraits — launching soon" page). Two changes move it here.
 
-```
-site/index.html      site/about.html    site/contact.html
-site/privacy.html    site/terms.html    site/404.html
-site/styles.css      site/favicon.svg
-site/robots.txt      site/sitemap.xml   site/.well-known/security.txt
-```
+### 1 · GoDaddy DNS
 
-**Host configuration:** serve `404.html` as the not-found page, and redirect `www` → apex (or the
-reverse) so only one hostname is canonical — `<link rel=canonical>` already points at the apex.
+In GoDaddy → *My Products* → the domain → **DNS** → *Manage Zones*.
 
-Preview locally: `cd site && python3 -m http.server 8123` → http://127.0.0.1:8123
+**Delete** the existing `A` record(s) on `@` and the `CNAME` on `www` that point at the old host,
+then add:
 
-## Before it goes live — founder actions
+| Type | Name | Value | TTL |
+|---|---|---|---|
+| A | @ | 185.199.108.153 | 1 hour |
+| A | @ | 185.199.109.153 | 1 hour |
+| A | @ | 185.199.110.153 | 1 hour |
+| A | @ | 185.199.111.153 | 1 hour |
+| CNAME | www | memoriostudio.github.io | 1 hour |
 
-1. **Take the domain off the old site.** `memoriostudio.com` currently serves a "Memorial
-   portraits — launching soon" page behind a password, from the unrelated earlier project. That
-   page fails Apple's requirement twice: placeholder content, and a business that does not match
-   the enrolling entity. Point the domain at this site instead.
-2. **Create one mailbox — `contact@memoriostudio.com`.** It is the only address on the site.
-   Apple also requires the enrollment email itself to be **on the organization's domain**, so a
-   working mailbox is a hard prerequisite, not a nicety.
-3. **Company details are now on the site**, supplied by the founder 2026-08-19:
-   30 N Gould St, Ste R, Sheridan, WY 82801 — in the ledger on `/`, `/about` and `/contact`, in
-   the footer of every page, in the JSON-LD `PostalAddress`, and in the contact blocks of both
-   legal documents. Governing law is set to **Wyoming**, inferred from that address.
-   **Both confirmed by the founder 2026-08-19:** the LLC is organised in Wyoming, and the address
-   matches the D&B record Apple cross-references. The site now states "a Wyoming limited liability
-   company" on first use in both legal documents and in the company ledgers.
-   - **Business phone** — still not on the site. Worth adding; Apple's verification often
-     involves a call to the number on the D&B record.
-4. **Deploy, then verify from outside** — load all four pages in a private window with no VPN, on
-   the bare domain and `www`, and confirm no password gate remains.
+Those four IPs are GitHub Pages' published apex addresses. All four are needed.
 
-## What deliberately is NOT here
+### 2 · Tell GitHub the domain is ours
 
-- **No product or security claims.** Earlier drafts described on-device storage and an
-  advertising-free model. Those were cut: they describe an unreleased product, they are detail the
-  founder does not want public yet, and a claim made before it can be demonstrated is the exact
-  failure this workspace treats as unacceptable everywhere else. The privacy policy still states
-  what the *website* does, because that is verifiable by loading it.
-- No analytics, no cookies, no trackers, no embedded third-party content.
-- No product marketing, no waitlist, no email capture.
-- No EIN, no D-U-N-S, no bank details. Company identity is public; company secrets are not.
+Repository → **Settings → Pages → Custom domain** → enter `memoriostudio.com` → Save.
+Then tick **Enforce HTTPS** once the certificate is issued (usually minutes, up to an hour).
 
+That writes a `CNAME` file back into the repository, which is why one is not committed here:
+while a CNAME claims a domain that still points elsewhere, GitHub redirects the preview URL to
+that domain — and the site becomes impossible to verify. It was removed for exactly that reason.
 
-## Quality bar, verified
+### 3 · Check from outside
 
-Checked headlessly on every page (`/`, `/about`, `/contact`, `/privacy`, `/terms`, `/404`):
+Private window, no VPN, both `memoriostudio.com` and `www.memoriostudio.com`. Confirm the
+password gate is gone and all five pages load.
 
-- **WCAG AA contrast** — zero text below 4.5:1. The first pass had seven failures, including the
-  call-to-action at 3.73:1; the steel and muted tokens were darkened until every page measured clean.
+---
+
+## Still outstanding for Apple
+
+1. **Create `contact@memoriostudio.com`.** It is the only address on the site, and Apple requires
+   the enrollment email itself to be on the organization's domain.
+2. **Consider adding the business phone** from the D&B record — verification often involves a call.
+3. **Retire or repoint the old Vercel project** once the domain has moved, so it cannot serve the
+   old site again. Note it is a real application with Stripe webhooks and Twilio A2P paths; it was
+   deliberately left untouched.
+
+## What is on the site
+
+Six pages — home, about, contact, privacy, terms, 404 — roughly 2,900 words.
+Legal entity, entity type, registered address and jurisdiction appear in the company ledgers, in
+every footer, in the JSON-LD `Organization` block, and in the contact sections of both legal
+documents. Privacy and terms are written to cover mailing lists, marketing email, cookies and
+analytics before any of them exist, so neither needs rewriting the day one is added.
+
+## Quality bar, verified headlessly on every page
+
+- **WCAG AA contrast** — zero text below 4.5:1, measured with translucent layers composited.
 - **No horizontal overflow** at 1440px, 1280px and 390px.
-- **Zero JavaScript** — so zero JavaScript errors, and nothing to break in a reviewer's browser.
-- **Every internal link resolves 200.**
+- **Zero JavaScript** — nothing to break in a reviewer's browser.
+- Every internal link resolves 200, on the live host.
 - `lang`, one `<h1>` per page, ordered headings, skip link, visible focus rings.
-- `canonical`, Open Graph and Twitter meta, `Organization` JSON-LD, `sitemap.xml`,
-  `robots.txt`, RFC 9116 `security.txt`, print stylesheet for the legal pages.
-
-**Word counts** (the "minimal content" rejection is the one to fear): home 309, about 327,
-privacy 450, terms 324, contact 118.
+- `canonical`, Open Graph, Twitter meta, `Organization` JSON-LD, `sitemap.xml`, `robots.txt`,
+  RFC 9116 `security.txt`, custom 404, print stylesheet.
