@@ -54,8 +54,15 @@ curl -sI https://memoriostudio.com/ | head -1
 
 ## Still outstanding for Apple
 
-1. **Create `contact@memoriostudio.com`.** It is the only address on the site, and Apple requires
-   the enrollment email itself to be on the organization's domain.
+1. ~~**Create `contact@memoriostudio.com`.**~~ **Done** — it exists in Google Workspace (confirmed by
+   the founder, 2026-08-19). It is the only address the site publishes, in every footer, in the
+   `Organization` JSON-LD on all six pages, and in `security.txt`.
+
+   **The enrollment address is a different address and does not need to appear here.** Apple's
+   requirement is that the enrollment email's *domain* match the organization's website domain — not
+   that the address itself be published. Enrollment used `<firstname>@memoriostudio.com`, which
+   satisfies it. **Apple writes to the enrollment address**, so that inbox is the one to watch during
+   review; `contact@` is for the public.
 2. **Consider adding the business phone** from the D&B record — verification often involves a call.
 3. **Retire or repoint the old Vercel project.** DNS no longer sends anyone to it, but the project
    still claims `memoriostudio.com` on the Vercel side — so a future DNS mistake, or someone
