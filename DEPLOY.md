@@ -1,47 +1,54 @@
 # memoriostudio.com — deployment
 
-**LIVE NOW:** https://memoriostudio.github.io/memoriostudio-site/
+**LIVE:** https://memoriostudio.com — since 2026-08-19.
 **Repository:** https://github.com/memoriostudio/memoriostudio-site
 **Host:** GitHub Pages, serving `main` from the repository root. No Vercel, no build step,
 no dependencies. Every push to `main` republishes within a minute.
 
 ---
 
-## To put it on memoriostudio.com — the only step left
+## How the domain reaches this repository
 
-The domain is registered at **GoDaddy** and currently points at the old Vercel project
-(the "Memorial portraits — launching soon" page). Two changes move it here.
+The domain is registered at **GoDaddy**, but its nameservers are delegated to **Cloudflare** —
+so records are edited in the Cloudflare dashboard, never at the registrar. Anyone who goes
+looking in GoDaddy will find a zone that does nothing.
 
-### 1 · GoDaddy DNS
-
-In GoDaddy → *My Products* → the domain → **DNS** → *Manage Zones*.
-
-**Delete** the existing `A` record(s) on `@` and the `CNAME` on `www` that point at the old host,
-then add:
-
-| Type | Name | Value | TTL |
+| Type | Name | Value | Proxy |
 |---|---|---|---|
-| A | @ | 185.199.108.153 | 1 hour |
-| A | @ | 185.199.109.153 | 1 hour |
-| A | @ | 185.199.110.153 | 1 hour |
-| A | @ | 185.199.111.153 | 1 hour |
-| CNAME | www | memoriostudio.github.io | 1 hour |
+| A | @ | 185.199.108.153 | **DNS only** |
+| A | @ | 185.199.109.153 | **DNS only** |
+| A | @ | 185.199.110.153 | **DNS only** |
+| A | @ | 185.199.111.153 | **DNS only** |
+| CNAME | www | memoriostudio.github.io | **DNS only** |
 
-Those four IPs are GitHub Pages' published apex addresses. All four are needed.
+All four apex IPs are needed; they are GitHub Pages' published addresses.
 
-### 2 · Tell GitHub the domain is ours
+**Grey cloud, not orange, and that is deliberate.** GitHub Pages issues and renews its own
+Let's Encrypt certificate by reaching the apex directly. Proxying these records through
+Cloudflare breaks that renewal, and it breaks it silently — months later, when the certificate
+comes up for renewal rather than the day the toggle is flipped.
 
-Repository → **Settings → Pages → Custom domain** → enter `memoriostudio.com` → Save.
-Then tick **Enforce HTTPS** once the certificate is issued (usually minutes, up to an hour).
+**Do not touch the MX or TXT records in that zone.** Google Workspace mail for the domain lives
+there, alongside SPF, DMARC and the Resend/SES DKIM records. The cutover left all of them alone.
 
-That writes a `CNAME` file back into the repository, which is why one is not committed here:
-while a CNAME claims a domain that still points elsewhere, GitHub redirects the preview URL to
-that domain — and the site becomes impossible to verify. It was removed for exactly that reason.
+`CNAME` in the repository root holds `memoriostudio.com`; that file is what tells GitHub Pages the
+apex belongs to this repository. It is committed, and deleting it un-binds the domain.
+**HTTPS is enforced**, so `http://` and `www.` both 301 to `https://memoriostudio.com/`.
 
-### 3 · Check from outside
+### What it replaced
 
-Private window, no VPN, both `memoriostudio.com` and `www.memoriostudio.com`. Confirm the
-password gate is gone and all five pages load.
+The apex previously pointed at a Vercel deployment (`216.150.1.1`, with `www` →
+`ae4cb208cea46e65.vercel-dns-017.com`) serving a "Memorial portraits — launching soon" page.
+Only the DNS moved. **The Vercel project still exists and was not modified.**
+
+### Verifying from the command line
+
+```
+dig +short memoriostudio.com A
+dig +short www.memoriostudio.com
+dig +short memoriostudio.com MX          # must still be Google's five
+curl -sI https://memoriostudio.com/ | head -1
+```
 
 ---
 
@@ -50,9 +57,11 @@ password gate is gone and all five pages load.
 1. **Create `contact@memoriostudio.com`.** It is the only address on the site, and Apple requires
    the enrollment email itself to be on the organization's domain.
 2. **Consider adding the business phone** from the D&B record — verification often involves a call.
-3. **Retire or repoint the old Vercel project** once the domain has moved, so it cannot serve the
-   old site again. Note it is a real application with Stripe webhooks and Twilio A2P paths; it was
-   deliberately left untouched.
+3. **Retire or repoint the old Vercel project.** DNS no longer sends anyone to it, but the project
+   still claims `memoriostudio.com` on the Vercel side — so a future DNS mistake, or someone
+   re-adding the domain there, puts the old page back. Note it is a real application with Stripe
+   webhooks and Twilio A2P paths, so it was deliberately left untouched rather than deleted; the
+   safe move is to remove the domain from that project, not the project itself.
 
 ## What is on the site
 
